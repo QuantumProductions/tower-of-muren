@@ -7,7 +7,7 @@ class TowerOfMuren extends Game {
 		Room.setup();
 		let f = new Floor();
 		f.x = 10;
-		f.y = 1100 - 100;
+		f.y = Thing.fh - 1;
 		f.duration = Room.w * 1.5;
 		this.add('f', f);
 	}

@@ -22,9 +22,9 @@ class Client {
 		// 	Thing.bigsize = sw;
 		// }
 
-		Thing.fw = 1200;
-		Thing.fh = 1200;
-		Thing.bigsize = 1200;
+		Thing.fw = 800;
+		Thing.fh = 800;
+		Thing.bigsize = 800;
 		// Thing.ratio = Thing.bigsize / 1200;
 		canvas.width = Thing.bigsize;
 		canvas.height = Thing.bigsize;

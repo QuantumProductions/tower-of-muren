@@ -2,7 +2,7 @@
 
 class Room {
   static setup() {
-    Room.w = 1200;
-    Room.h = 400;
+    Room.w = 800;
+    Room.h = 266;
   }
 }
