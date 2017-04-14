@@ -3,7 +3,8 @@
 class Room {
   static setup() {
     Room.w = 800;
-    Room.h = 266;
-    Room.walk = 1;
+    Room.h = 270;
+    Room.walk = 4;
+    Room.bottom = 800;
   }
 }

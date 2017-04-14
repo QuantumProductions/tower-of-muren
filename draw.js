@@ -4,7 +4,7 @@ Thing.prototype.draw = function(client, context) {
 
 Floor.prototype.draw = function(c, ct) {
 	ct.beginPath();
-	console.log(this.x);
+	// console.log(this.x);
 	ct.strokeStyle = Color.main;
 	this.render(ct, this.x, this.y, this.duration);
 	ct.stroke();

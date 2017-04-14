@@ -5,20 +5,28 @@ class TowerOfMuren extends Game {
 		super(options);
 		Color.setup();
 		Room.setup();
+		Floor.makeFloors(this, this.floors());
 		let f = new Floor();
 		f.x = 0;
 		f.y = Thing.fh - 1;
 		f.duration = Room.w * 1.5;
-		this.add('f', f);
-		console.log(Object.keys(this.things));
+		// this.add('f', f);
+	}
+
+	floors() {
+		return [
+		[0.5,3,0.625], [0.5, 4, 0.75],
+		[0, 3, 0.1],
+		[0.5,2,0.5],
+		[0.75,1,0.5],
+		[0,0,1.5],
+		]
 	}
 
 	scrollAll(xD) { 
 		let exclude = ['p'];
 		for (var key of Object.keys(this.things)) {
-			// console.log("exclude");
 			if (exclude.indexOf(key) < 0) {
-				console.log(this.things[key]);
 				for (var t of this.things[key]) {
 					t.x -= xD;
 					if (t.x < 0) {

@@ -97,6 +97,7 @@ class Game {
 	}
 
 	outOfBounds(thing) {
+		return false;
  		return thing.x < -10 || thing.y < -10 || thing.x > this.fw || thing.y > this.fh;
 	}
 
