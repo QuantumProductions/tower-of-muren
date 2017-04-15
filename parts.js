@@ -63,6 +63,10 @@ class Player extends Thing {
 		this.slopeRemain += v;
 	}
 
+	flip() {
+		this.heightDelta = Room.h - this.heightDelta;
+	}
+
 	walkLeft(things) {
 		return findFloor(things['f'], this.x - Room.walk, this.y);
 	}
