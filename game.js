@@ -41,27 +41,35 @@ class TowerOfMuren extends Game {
 		// }
 	}
 
+	scrollSlopeRight(direction) {
+		if (direction == "/") {
+			this.scrollAll(Room.walk, Room.walk);
+			this.p.increaseSlope(-Room.walk, 1);
+		}
+	}
+
+	scrollSlopeLeft(direction) {
+		if (direction == "/") {
+			console.log("hi");
+			this.scrollAll(-Room.walk, -Room.walk);
+			this.p.increaseSlope(Room.walk, -1);
+		}
+	}
+
 	parseInput(key_down_map, key_up_map, key_pressing_map, key_depressing_map) {
 		// else, look for floor
 		// held, lever hit
 		// default do nothing
-		if (this.p.y % Room.h != 0) {
-			let diff = Room.h - (this.p.y % Room.h);
-			console.log(diff);
-			this.p.y += diff;
-			this.scrollAll(0, diff);
-		}
 
 		if (key_down_map['R1'] == true) {
 			if (this.p.sloping()) {
-				if (this.p.slopeDirection == "/") {
-					this.scrollAll(Room.walk, Room.walk);
-					this.p.increaseSlope(-Room.walk);
-				}
+				this.scrollSlopeRight(this.p.slopeDirection);
 			} else {
 				let s = findSlope(this.p.x, this.p.y, this.things['s'], 1);
 				if (s) {
 					this.p.slope(s);
+					console.log("found slope");
+					this.scrollSlopeRight(s.direction());
 				} else {
 					let f = this.p.walkRight(this.things);
 					if (f) {
@@ -81,20 +89,13 @@ class TowerOfMuren extends Game {
 
 		} else if (key_down_map['L1'] == true) {
 			if (this.p.sloping()) {
-				console.log("XXXyou're sloping");
-				if (this.p.slopeDirection == "/") {
-					this.scrollAll(-Room.walk, -Room.walk);
-					this.p.increaseSlope(Room.walk);
-
-				} else {
-					console.log("HUH?");
-				}
+				this.scrollSlopeLeft(this.p.slopeDirection);
 			} else {
 				let s = findSlope(this.p.x, this.p.y, this.things['s'], -1);
 				if (s) {
 					this.p.slope(s);
 					console.log("you're sloping");
-					// this.p.slopeRemain = 1;
+					this.scrollSlopeLeft(s.direction());
 				} else {
 					let f = this.p.walkLeft(this.things);
 					if (f) {

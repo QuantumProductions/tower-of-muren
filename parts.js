@@ -30,20 +30,36 @@ class Player extends Thing {
 		this.x = 0;
 		this.y = 0;
 		this.right = true;
-		this.slopeRemain = 0;
+		this.heightDelta = 0;
 		this.slopeDirection = "";
 	}	
 
 	sloping() {
-		return this.slopeRemain > 0 && this.slopeRemain <= Room.h;
+		return this.heightDelta > 0 && this.heightDelta < Room.h;
 	}
 
 	slope(s, direction) {
-		this.slopeRemain = Room.h;	
+		this.heightDelta = 0;
 		this.slopeDirection = s.direction();
+		this.slopeR = s.r;
 	}
 
-	increaseSlope(v) {
+	increaseSlope(v, direction) {
+		if (this.slopeR > 270 || this.slopeR < 90) {
+			if (direction == 1) {
+				this.heightDelta += v;	
+			} else if (direction == -1) {
+				this.heightDelta -= v;	
+			}
+			
+		} else {
+			if (direction == 1) {
+				this.heightDelta -= v;	
+			} else if (direction == -1) {
+				this.heightDelta += v;
+			}
+			
+		}
 		this.slopeRemain += v;
 	}
 
