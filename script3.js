@@ -1,58 +1,29 @@
-wrapPilot = function(thing) {
-  if (thing.x < 100) {
-    thing.x += (thing.fw - 200);
-  } else if (thing.x > thing.fw - 100) {
-    thing.x -= (thing.fw - 200);
-  }
-  // if (thing.x < thing.wingSpan()) {
-  //   thing.x = thing.fw - thing.wingSpan();
-  // } else if (thing.x > thing.fw - thing.wingSpan()) {
-  //   thing.x = thing.wingSpan();
-  // }
-
-  var floor = thing.fh + thing.noseSpan() - thing.engineSpan() - 4;
-
-  if (thing.y < thing.topLimit()) {
-    thing.positionAtTop();
-    if (thing.game.quantumpilot) {
-      thing.game.advanceToQuantumPilot();
-      thing.positionAtBottom();
-      // thing.y = thing.fh - thing.engineSpan() - 4;
+findFloor = function(floors, x, y) {
+  var here = null;
+  for (var f of floors) {
+    if (findFloor2(f, x, y, f.x, f.y, f.duration)) {
+      return f;
     }
-  } else if (thing.bottomPoint() > thing.fh) {
-    thing.positionAtBottom();
-    // thing.y = floor;
   }
+
+  return null;
 }
 
-wrapClone = function(thing) {
-  if (thing.x < 100) {
-    thing.x += (thing.fw - 200);
-  } else if (thing.x > thing.fw - 100) {
-    thing.x -= (thing.fw - 200);
+findFloor2 = function(floor, x, y, fx, fy, duration) {
+  if (fx > Room.w) {
+    fx -= Room.w;
+    fy -= Room.h;
   }
 
-  if (thing.y < thing.engineSpan()) {
-    thing.y = thing.engineSpan();
-  } else if (thing.y > thing.fh - thing.noseSpan()) {
-    thing.y = thing.fh - thing.noseSpan();
+  if (duration <= 0) {
+    return null;
   }
-}
 
-wrapBullet = function(thing) {
-  if (thing.x < 100) {
-    if (thing.ox) {
-      thing.mx = Math.abs(thing.mx);
-    } else {
-      thing.x += (thing.fw - 200)
-    }
-    
-  } else if (thing.x > thing.fw - 100) {
-    if (thing.ox) {
-      thing.mx = -Math.abs(thing.mx);
-    } else {
-      thing.x -= (thing.fw - 200);
-    }
-    
-  } 
+  if (Math.abs(fy - y) < 11 && Math.abs(fx - x) < 11) {
+    return true;
+  }
+
+
+
+  return findFloor2(floor, x, y, fx + 1, fy, duration - 1);
 }
