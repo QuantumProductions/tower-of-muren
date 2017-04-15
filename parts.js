@@ -63,9 +63,11 @@ class Slope extends Thing {
 	}
 
 	static makeSlope(game, x, level, r) {
+
 		var s = new Slope();
 		s.x = x * Room.w;
 		s.y = Thing.fh - (level * Room.h) - 1;
+		console.log("made slope" + s.y);
 		s.level = level;
 		s.r = r;
 		game.add('s', s);	

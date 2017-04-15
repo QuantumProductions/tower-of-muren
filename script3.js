@@ -29,13 +29,16 @@ findSlope = function(x, y, slopes, xD) {
   for (var s of slopes) {
     // adjacent first
     if (xD == 1) {
-      return findSlopeRight(x, y, s);
+      let slope = findSlopeRight(x, y, s);
+      if (slope != null) {
+        return slope;
+      }
     } else if (xD == -1) {
       // return findSlopeLeft(x, y, s);
     }
-
-    return null;
   }
+
+  return null;
 }
 
 findSlopeRight = function(x, y, s) {
@@ -46,10 +49,11 @@ findSlopeRight = function(x, y, s) {
   } else if (Math.abs(s.y - y) < 11 && Math.abs(s.x - (x + s.duration)) < 11 && s.r == 180) {
     //can calculate 200 from 284 thru trig
     return s;
-  } else if (Math.abs( (y - s.y) - Room.h) < 11 && Math.abs(s.x - (x + 200)) < 11 && s.r == 135) { //top right coming /
+    console.log()
+  } else if (Math.abs( (y - Room.h) - (s.y)) < 11 && Math.abs(s.x - (x + 200)) < 11 && s.r == 135) { //top right coming /
     console.log(".135");
     return s;
-  } else if (Math.abs( (s.y - y) - Room.h) < 11 && Math.abs(s.x - (x + 200)) < 11 && s.r == 225) { //bottom right coming \
+  } else if (Math.abs( (s.y - Room.h) - (y)) < 11 && Math.abs(s.x - (x + 200)) < 11 && s.r == 225) { //bottom right coming \
     console.log(".225");
     return s;
   } 
