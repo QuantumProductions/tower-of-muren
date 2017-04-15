@@ -35,11 +35,11 @@ class Player extends Thing {
 	}	
 
 	sloping() {
-		return this.slopeRemain > 0; // && this.slopeRemain < Room.walk;
+		return this.slopeRemain > 0 && this.slopeRemain <= Room.h;
 	}
 
-	slope(s) {
-		this.slopeRemain = Room.h;
+	slope(s, direction) {
+		this.slopeRemain = Room.h;	
 		this.slopeDirection = s.direction();
 	}
 
@@ -75,7 +75,6 @@ class Slope extends Thing {
 		var s = new Slope();
 		s.x = x * Room.w;
 		s.y = Thing.fh - (level * Room.h) - 1;
-		console.log("made slope" + s.y);
 		s.level = level;
 		s.r = r;
 		game.add('s', s);	

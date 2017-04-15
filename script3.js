@@ -34,7 +34,10 @@ findSlope = function(x, y, slopes, xD) {
         return slope;
       }
     } else if (xD == -1) {
-      // return findSlopeLeft(x, y, s);
+      let slope = findSlopeLeft(x, y, s);
+      if (slope != null) {
+        return slope;
+      }
     }
   }
 
@@ -42,23 +45,36 @@ findSlope = function(x, y, slopes, xD) {
 }
 
 findSlopeRight = function(x, y, s) {
-  if (Math.abs(s.y - y) < 11 && s.x - x < Room.walk && (s.r < 90 || s.r > 270)) {
+  if (s.x > x) {
+
+  if (Math.abs(s.y - y) < 11 && s.x - x <= Room.walk && (s.r < 90 || s.r > 270)) {
     //account for all 3 / - \ angles
-    console.log("even");
     return s;
   } else if (Math.abs(s.y - y) < 11 && Math.abs(s.x - (x + s.duration)) < 11 && s.r == 180) {
     //can calculate 200 from 284 thru trig
     return s;
-    console.log()
   } else if (Math.abs( (y - Room.h) - (s.y)) < 11 && Math.abs(s.x - (x + 200)) < 11 && s.r == 135) { //top right coming /
-    console.log(".135");
     return s;
   } else if (Math.abs( (s.y - Room.h) - (y)) < 11 && Math.abs(s.x - (x + 200)) < 11 && s.r == 225) { //bottom right coming \
-    console.log(".225");
     return s;
   } 
-
+  }
   return null;
 }
 
-// findSlopeLeft()
+findSlopeLeft = function(x, y, s) {
+  if (s.x < x) {
+  if (Math.abs(s.y - y) < 11 && x - s.x <= Room.walk && (s.x == 225 || s.r == 180 || s.r == 135)) {
+    //account for all 3 / - \ angles
+    return s;
+  } else if (Math.abs(s.y - y) < 11 && Math.abs((x + s.duration) - s.x) < 11 && s.r == 0) {
+    //can calculate 200 from 284 thru trig
+    return s;
+  } else if (Math.abs( (y - Room.h) - (s.y)) < 11 && Math.abs((x + 200) - s.x) < 11 && s.r == 45) { //top left coming \
+    return s;
+  } else if (Math.abs( (s.y - Room.h) - (y)) < 11 && Math.abs((x + 200) - s.x) < 11 && s.r == 315) { //bottom left coming /
+    return s;
+  } 
+  }
+  return null; 
+}
