@@ -10,7 +10,20 @@ class TowerOfMuren extends Game {
 		f.x = 0;
 		f.y = Thing.fh - 1;
 		f.duration = Room.w * 1.5;
-		// this.add('f', f);
+		// 
+
+		this.add('f', f);
+
+		this.spawnTurtle();
+	}
+
+	spawnTurtle() {
+		var p = new Turtle();
+		p.x = 0.5 * Room.w;
+		p.y = Thing.fh - 10;
+		this.p = p;
+		this.add('p', this.p);
+
 	}
 
 	floors() {
@@ -49,8 +62,10 @@ class TowerOfMuren extends Game {
 		if (key_down_map['R1'] == true) {
 			// console.log("hi");
 			this.scrollAll(Room.walk);
+			this.p.walkRight();
 		} else if (key_down_map['L1'] == true) {
 			this.scrollAll(-Room.walk);
+			this.p.walkLeft();
 		}
 	}
 }

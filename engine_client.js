@@ -5,7 +5,7 @@ class Client {
 	styleCanvas(canvas) {
 		var context = canvas.getContext('2d');
 		context.textAlign = 'center';
-		context.font = '' + 30 * Thing.ratio +'pt Courier New';
+		context.font = '' + 60 +'pt Courier New';
 		//return canvas;
 	}
 

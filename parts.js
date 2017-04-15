@@ -22,3 +22,20 @@ class Floor extends Thing {
 		}
 	}
 }
+
+class Turtle extends Thing {
+	constructor() {
+		super();
+		this.x = 0;
+		this.y = 0;
+		this.right = true;
+	}	
+
+	walkLeft() {
+		this.right = false;
+	}
+
+	walkRight() {
+		this.right = true;
+	}
+}
