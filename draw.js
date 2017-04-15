@@ -29,3 +29,11 @@ Player.prototype.draw = function(cnv, c) {
 	c.fillText("@", Room.w / 2, this.y);
 	return;
 }
+
+Slope.prototype.draw = function(cnv, c) {
+	c.beginPath();
+	c.moveTo(this.x, this.y);
+	let rp = rotate_point(this.x + this.duration, this.y, this.x, this.y, this.r);
+	c.lineTo(rp.x, rp.y);
+	c.stroke();
+}

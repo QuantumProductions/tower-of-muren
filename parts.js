@@ -30,7 +30,13 @@ class Player extends Thing {
 		this.x = 0;
 		this.y = 0;
 		this.right = true;
+		this.slopeRemain = 0;
+		this.slopeDirection = "";
 	}	
+
+	sloping() {
+		return this.slopeRemain > 0;
+	}
 
 	walkLeft(things) {
 		return findFloor(things['f'], this.x - Room.walk, this.y);
@@ -45,12 +51,29 @@ class Player extends Thing {
 
 class Slope extends Thing {
 	constructor() {
+		super();
 		this.x = 0;
 		this.y = 0;
 		this.team = 'not';
 		this.leverDirection = -1;
 		this.r = 135;
+		this.duration = 282.84;
 		// this.startingR = 135;
 		// this.currentR = this.startingR;
 	}
+
+	static makeSlope(game, x, level, r) {
+		var s = new Slope();
+		s.x = x * Room.w;
+		s.y = Thing.fh - (level * Room.h) - 1;
+		s.level = level;
+		s.r = r;
+		game.add('s', s);	
+	}
+
+	static makeSlopes(game, slopes) {
+		for (let s of slopes) {
+			Slope.makeSlope(game, s[0], s[1], s[2]);
+		}
+	}	
 }
