@@ -51,15 +51,19 @@ class TowerOfMuren extends Game {
 
 		if (key_down_map['R1'] == true) {
 			if (this.p.sloping()) {
+				if (this.p.slopeDirection == "/") {
+					this.scrollAll(Room.walk, Room.walk);
+					// this.p.increaseSlope(-Room.walk);
+				}
+
 				console.log("You're sloping!");
 			} else {
 				let s = findSlope(this.p.x, this.p.y, this.things['s'], 1);
 				if (s) {
-					console.log("Found a slope!");
-					console.log(s.r);
+					this.p.slope(s);
 				} else {
 					if (this.p.walkRight(this.things)) {
-				this.scrollAll(Room.walk, 0);
+						this.scrollAll(Room.walk, 0);
 					}					
 				}
 
