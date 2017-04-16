@@ -64,7 +64,7 @@ findSlopeRight = function(x, y, s) {
 
 findSlopeLeft = function(x, y, s) {
   if (s.x < x) {
-  if (Math.abs(s.y - y) < 11 && x - s.x <= Room.walk && (s.x == 225 || s.r == 180 || s.r == 135)) {
+  if (Math.abs(s.y - y) < 11 && x - s.x <= Room.walk && (s.r == 225 || s.r == 180 || s.r == 135)) {
     //account for all 3 / - \ angles
     return s;
   } else if (Math.abs(s.y - y) < 11 && Math.abs((x + s.duration) - s.x) < 11 && s.r == 0) {
