@@ -94,7 +94,7 @@ class TowerOfMuren extends Game {
 					if (f) {
 						this.scrollAll(Room.walk, 0);
 					} else {
-						console.log("no floor");
+						// console.log("no floor");
 					}
 				}
 
@@ -112,6 +112,7 @@ class TowerOfMuren extends Game {
 					this.p.slope(s);
 					this.scrollSlopeLeft(s.direction());
 				} else {
+					// console.log("no slope");
 					let f = this.p.walkLeft(this.things);
 					if (f) {
 						this.scrollAll(-Room.walk, 0);

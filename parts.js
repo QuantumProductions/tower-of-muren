@@ -36,7 +36,7 @@ class Player extends Thing {
 
 	sloping() {
 		if (this.slopeDirection == "-") {
-			return this.heightDelta > 290;
+			return this.heightDelta > 280;
 		}
 		return this.heightDelta > 0 && this.heightDelta < Room.h;
 	}
@@ -61,6 +61,7 @@ class Player extends Thing {
 				this.heightDelta -= v;
 			}
 		}
+		// console.log(this.heightDelta);
 	}
 
 	flip() {
