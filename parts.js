@@ -61,7 +61,6 @@ class Player extends Thing {
 				this.heightDelta -= v;
 			}
 		}
-		// console.log(this.heightDelta);
 	}
 
 	flip() {
