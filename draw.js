@@ -33,7 +33,16 @@ Player.prototype.draw = function(cnv, c) {
 Slope.prototype.draw = function(cnv, c) {
 	c.beginPath();
 	c.moveTo(this.x, this.y);
-	let rp = rotate_point(this.x + this.duration, this.y, this.x, this.y, this.r);
+	var rp = rotate_point(this.x + this.duration, this.y, this.x, this.y, this.r);
 	c.lineTo(rp.x, rp.y);
+	c.moveTo(this.x + Room.w, this.y + Room.h);
+	rp = rotate_point(this.x + Room.w + this.duration, this.y + Room.h, this.x + Room.w, this.y + Room.h, this.r);
+	c.lineTo(rp.x, rp.y);
+	c.moveTo(this.x - Room.w, this.y - Room.h);
+	rp = rotate_point(this.x - Room.w + this.duration, this.y - Room.h, this.x - Room.w, this.y - Room.h, this.r);
+	c.lineTo(rp.x, rp.y);
+
 	c.stroke();
+
+
 }
