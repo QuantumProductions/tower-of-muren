@@ -35,6 +35,7 @@ class Player extends Thing {
 	}	
 
 	sloping() {
+		// console.log(this.heightDelta);
 		if (this.slopeDirection == "-") {
 			return this.heightDelta > 280;
 		}

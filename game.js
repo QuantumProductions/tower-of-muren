@@ -83,17 +83,24 @@ class TowerOfMuren extends Game {
 		if (key_down_map['R1'] == true) {
 			if (this.p.sloping()) {
 				this.scrollSlopeRight(this.p.slopeDirection);
+				if (!this.p.sloping()) {
+					this.scrollAll(Room.walk, 0);
+				}
 			} else {
 				let s = findSlope(this.p.x, this.p.y, this.things['s'], 1);
 				if (s) {
+
 					this.p.slope(s);
+					this.p.right = true;
+					// this.scrollSlopeRight(s.direction());
 					this.scrollSlopeRight(s.direction());
+
 				} else {
 					let f = this.p.walkRight(this.things);
 					if (f) {
 						this.scrollAll(Room.walk, 0);
 					} else {
-						// console.log("no floor");
+						console.log("no floor");
 					}
 				}
 
@@ -105,16 +112,24 @@ class TowerOfMuren extends Game {
 		} else if (key_down_map['L1'] == true) {
 			if (this.p.sloping()) {
 				this.scrollSlopeLeft(this.p.slopeDirection);
+				if (!this.p.sloping()) {
+					this.scrollAll(-Room.walk, 0);
+				}
 			} else {
 				let s = findSlope(this.p.x, this.p.y, this.things['s'], -1);
 				if (s) {
+					
 					this.p.slope(s);
+					this.p.right = false;
 					this.scrollSlopeLeft(s.direction());
+					// this.scrollSlopeLeft(s.direction());
 				} else {
 					// console.log("no slope");
 					let f = this.p.walkLeft(this.things);
 					if (f) {
 						this.scrollAll(-Room.walk, 0);
+					} else {
+						console.log("no floor L");
 					}
 					
 				}
