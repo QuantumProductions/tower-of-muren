@@ -22,4 +22,13 @@ class Data {
       [0.75 + t, 1, 225]
     ];
   }
+
+  static ladders() {
+    let m = 0.125;
+    let n = m / 2;
+    let t = m + n;
+    return [
+      [0.5, 1]
+    ]
+  }
 }

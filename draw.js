@@ -43,6 +43,15 @@ Slope.prototype.draw = function(cnv, c) {
 	c.lineTo(rp.x, rp.y);
 
 	c.stroke();
+}
 
-
+Ladder.prototype.draw = function(cnv, c) {
+	c.beginPath();
+	c.moveTo(this.x, this.y);
+	c.lineTo(this.x, this.y - Room.h);
+	c.moveTo(this.x + Room.w, this.y + Room.h);
+	c.lineTo(this.x + Room.w, this.y - Room.h + Room.h);
+	c.moveTo(this.x - Room.w - Room.w, this.y - Room.h);
+	c.lineTo(this.x - Room.w, this.y - Room.h - Room.h);
+	c.stroke();
 }

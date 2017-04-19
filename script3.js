@@ -1,3 +1,30 @@
+findLadder = function(ladders, x, y, direction) {
+  for (var l of ladders) {
+    if (findLadder2(l, x, y, direction)) {
+      return l;
+    }
+  }
+
+  return null;
+}
+
+findLadder2 = function(l, x, y, direction) {
+  if (x > l.x - 10 * Room.walk && x < l.x +  10 * Room.walk) {
+    if (direction == 1) {
+       return Math.abs((l.y - 200) - y) < 11;
+    } else if (direction == -1) {
+      return Math.abs(y - l.y) < 11;
+    }
+
+
+  }
+  // if (x > l.x - 4 * Room.walk && x < l.x +  4 * Room.walk && (Math.abs(y - l.y) < 11 || Math.abs(y - 200) - l.y < 11)) {
+    // return true;
+  // }
+
+  return null;
+}
+
 findFloor = function(floors, x, y) {
   for (var f of floors) {
     if (findFloor2(f, x, y, f.x, f.y, f.duration)) {

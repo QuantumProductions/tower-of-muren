@@ -30,9 +30,27 @@ class Player extends Thing {
 		this.x = 0;
 		this.y = 0;
 		this.right = true;
+		this.up = true;
 		this.heightDelta = 0;
 		this.slopeDirection = "";
+		this.ladderDelta = 0;
 	}	
+
+	ladder(s) {
+		this.ladderDelta = 0;
+	}
+
+	increaseLadder(v) {
+		this.ladderDelta += v;
+	}
+
+	flipV() {
+		this.ladderDelta = Room.h - this.ladderDelta;
+	}
+
+	laddering() {
+		return this.ladderDelta > 0 && this.ladderDelta < Room.h
+	}
 
 	sloping() {
 		// console.log(this.heightDelta);
@@ -49,19 +67,7 @@ class Player extends Thing {
 	}
 
 	increaseSlope(v, direction) {
-		if (this.slopeR > 270 || this.slopeR < 90) {
-			if (direction == 1) {
-				this.heightDelta -= v;	 //>>>
-			} else if (direction == -1) {
-				this.heightDelta -= v;	 //<<<
-			}
-		} else {
-			if (direction == 1) {
-				this.heightDelta -= v;	
-			} else if (direction == -1) {
-				this.heightDelta -= v;
-			}
-		}
+			this.heightDelta += v;
 	}
 
 	flip() {
@@ -116,4 +122,27 @@ class Slope extends Thing {
 			return "/";
 		}
 	}
+}
+
+class Ladder extends Thing {
+	constructor() {
+		super();
+		this.x = 0;
+		this.y = 0;
+	}
+
+	static makeLadder(game, x, level) {
+		var l = new Ladder();
+		l.x = x * Room.w;
+		l.y = Thing.fh - (level * Room.h) - 1;
+		l.level = level;
+		game.add('l', l);	
+	}
+
+	static makeLadders(game, ladders) {
+		// could just pass array dynamically for all game types
+		for (let s of ladders) {
+			Ladder.makeLadder(game, s[0], s[1]);
+		}
+	}	
 }

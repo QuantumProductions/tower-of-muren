@@ -7,6 +7,8 @@ class TowerOfMuren extends Game {
 		Room.setup();
 		Floor.makeFloors(this, Data.floors());
 		Slope.makeSlopes(this, Data.slopes());
+		Ladder.makeLadders(this, Data.ladders());
+		// do this dynamically
 		this.spawnP();
 	}
 
@@ -47,13 +49,13 @@ class TowerOfMuren extends Game {
 		}
 		if (direction == "/") {
 			this.scrollAll(Room.walk, Room.walk);
-			this.p.increaseSlope(-Room.walk, 1);
+			this.p.increaseSlope(Room.walk, 1);
 		} else if (direction == "-") {
 			this.scrollAll(Room.walk, 0);
-			this.p.increaseSlope(-Room.walk, 1);
+			this.p.increaseSlope(Room.walk, 1);
 		} else if (direction == "\\") {
 			this.scrollAll(Room.walk, -Room.walk);
-			this.p.increaseSlope(-Room.walk, 1);
+			this.p.increaseSlope(Room.walk, 1);
 		}
 
 
@@ -65,20 +67,68 @@ class TowerOfMuren extends Game {
 		}
 		if (direction == "/") {
 			this.scrollAll(-Room.walk, -Room.walk);
-			this.p.increaseSlope(-Room.walk, -1);
+			this.p.increaseSlope(Room.walk, -1);
 		} else if (direction == "-") {
-			this.scrollAll(-Room.walk, 0);
+			this.scrollAll(Room.walk, 0);
 			this.p.increaseSlope(-Room.walk, -1);
 		} else if (direction == "\\") {
-			this.scrollAll(-Room.walk, Room.walk);
+			this.scrollAll(Room.walk, Room.walk);
 			this.p.increaseSlope(-Room.walk, -1);
 		}
+	}
+
+	scrollLadderUp(v) {
+		if (this.p.down == true) {
+			this.p.flipV();
+		}
+		console.log("ladder");
+			this.scrollAll(0, Room.walk);
+			this.p.increaseLadder(Room.walk);
+
+			if (!this.p.laddering()) {
+				this.p.ladderDelta = 0;
+			}
+	}
+
+	scrollLadderDown(v) {
+		if (this.p.up == true) {
+			this.p.flipV();
+		}
+			this.scrollAll(0, -Room.walk);
+			this.p.increaseLadder(Room.walk);
+
+			if (!this.p.laddering()) {
+				this.p.ladderDelta = 0;
+			}
 	}
 
 	parseInput(key_down_map, key_up_map, key_pressing_map, key_depressing_map) {
 		// else, look for floor
 		// held, lever hit
 		// default do nothing
+		console.log(this.p.ladderDelta);
+		if (key_down_map['U1'] == true) {
+			if (this.p.laddering()) {
+				this.scrollLadderUp(Room.walk);
+			} else if (!this.p.sloping()){
+				let l = findLadder(this.things['l'], this.p.x, this.p.y, -1);
+				if (l) {
+					this.p.ladder(l);
+					this.scrollLadderUp(Room.walk);
+				}
+			}
+		} else if (key_down_map['D1'] == true) {
+			if (this.p.laddering()) {
+				this.scrollLadderDown(Room.walk);
+			} else if (!this.p.sloping()){
+				let l = findLadder(this.things['l'], this.p.x, this.p.y, 1);
+				if (l) {
+					this.p.ladder(l);
+					this.scrollLadderDown(Room.walk);
+				}
+			}
+		}
+
 
 		if (key_down_map['R1'] == true) {
 			if (this.p.sloping()) {
@@ -86,7 +136,7 @@ class TowerOfMuren extends Game {
 				if (!this.p.sloping()) {
 					this.scrollAll(Room.walk, 0);
 				}
-			} else {
+			} else if (!this.p.laddering()) {
 				let s = findSlope(this.p.x, this.p.y, this.things['s'], 1);
 				if (s) {
 
@@ -115,7 +165,7 @@ class TowerOfMuren extends Game {
 				if (!this.p.sloping()) {
 					this.scrollAll(-Room.walk, 0);
 				}
-			} else {
+			} else if (!this.p.laddering()) {
 				let s = findSlope(this.p.x, this.p.y, this.things['s'], -1);
 				if (s) {
 					
