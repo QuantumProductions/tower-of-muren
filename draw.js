@@ -46,12 +46,31 @@ Slope.prototype.draw = function(cnv, c) {
 }
 
 Ladder.prototype.draw = function(cnv, c) {
+	this.draw4(c, this.x, this.y);
+	this.draw4(c, this.x - Room.w, this.y - Room.h);
+	this.draw4(c, this.x + Room.w, this.y + Room.h);
+}
+
+Ladder.prototype.draw4 = function(c, x, y) {
+	var w = 6;
+	this.draw2(c, x - w, y);
+	this.draw2(c, x + w, y);
+	var s = 12;
+	for (var i = y; i > y - Room.h; i-= s) {
+		this.draw3(c, x - w, i, w * 2);
+	}
+}
+
+Ladder.prototype.draw2 = function(c, x, y) {
 	c.beginPath();
-	c.moveTo(this.x, this.y);
-	c.lineTo(this.x, this.y - Room.h);
-	c.moveTo(this.x + Room.w, this.y + Room.h);
-	c.lineTo(this.x + Room.w, this.y - Room.h + Room.h);
-	c.moveTo(this.x - Room.w - Room.w, this.y - Room.h);
-	c.lineTo(this.x - Room.w, this.y - Room.h - Room.h);
+	c.moveTo(x, y);
+	c.lineTo(x, y - Room.h);
+	c.stroke();
+}
+
+Ladder.prototype.draw3 = function(c, x, y, w) {
+	c.beginPath();
+	c.moveTo(x, y);
+	c.lineTo(x + w, y);
 	c.stroke();
 }

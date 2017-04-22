@@ -74,7 +74,6 @@ class TowerOfMuren extends Game {
 		if (this.p.down == true) {
 			this.p.flipV();
 		}
-		console.log("ladder");
 			this.scrollAll(0, Room.walk);
 			this.p.increaseLadder(Room.walk);
 
