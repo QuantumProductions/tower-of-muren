@@ -42,6 +42,9 @@ class Player extends Thing {
 
 	increaseLadder(v) {
 		this.ladderDelta += v;
+		// if (this.ladderDelta >= Room.h) {
+		// 	this.ladderDelta = 0;
+		// }
 	}
 
 	flipV() {
@@ -51,6 +54,7 @@ class Player extends Thing {
 	laddering() {
 		return this.ladderDelta > 0 && this.ladderDelta < Room.h
 	}
+
 
 	sloping() {
 		// console.log(this.heightDelta);
