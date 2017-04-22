@@ -29,6 +29,7 @@ class Player extends Thing {
 		super();
 		this.x = 0;
 		this.y = 0;
+		this.h = 9;
 		this.right = true;
 		this.up = true;
 		this.heightDelta = 0;
@@ -36,8 +37,9 @@ class Player extends Thing {
 		this.ladderDelta = 0;
 	}	
 
-	ladder(s) {
+	goLadder(l) {
 		this.ladderDelta = 0;
+		this.ladder = l;
 	}
 
 	increaseLadder(v) {
@@ -52,12 +54,21 @@ class Player extends Thing {
 	}
 
 	laddering() {
-		return this.ladderDelta > 0 && this.ladderDelta < Room.h
+		if (this.ladder) {
+			let isLadder = this.y < this.ladder.y - this.h && this.y > this.ladder.y - Room.h;
+			if (!isLadder) {
+				this.ladder = null;
+			}
+			return isLadder
+		}
+
+		this.ladder = null;
+
+		return false;
 	}
 
 
 	sloping() {
-		// console.log(this.heightDelta);
 		if (this.slopeDirection == "-") {
 			return this.heightDelta > 280;
 		}

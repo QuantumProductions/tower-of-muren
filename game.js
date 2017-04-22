@@ -108,11 +108,9 @@ class TowerOfMuren extends Game {
 			} else if (!this.p.sloping()){
 				let l = findLadder(this.things['l'], this.p.x, this.p.y, -1);
 				if (l) {
-					this.p.ladder(l);
+					this.p.goLadder(l);
 					this.scrollLadderUp(Room.walk);
 				} else {
-					console.log("no ladder up");
-					console.log(this.p.ladderDelta);
 				}
 				this.p.down = false;
 			}
@@ -122,12 +120,11 @@ class TowerOfMuren extends Game {
 			} else if (!this.p.sloping()){
 				let l = findLadder(this.things['l'], this.p.x, this.p.y, 1);
 				if (l) {
-					this.p.ladder(l);
+					this.p.goLadder(l);
 					this.scrollLadderDown(Room.walk);
 					this.p.down = true;
 				} else {
-					console.log("no ladder");
-					console.log(this.p.ladderDelta);
+
 				}
 			}
 		}
@@ -138,7 +135,7 @@ class TowerOfMuren extends Game {
 				if (!this.p.sloping()) {
 					this.scrollAll(Room.walk, 0);
 				}
-			} else {
+			} else if (!this.p.ladder){
 				let s = findSlope(this.p.x, this.p.y, this.things['s'], 1);
 				if (s) {
 
@@ -167,16 +164,14 @@ class TowerOfMuren extends Game {
 				if (!this.p.sloping()) {
 					this.scrollAll(-Room.walk, 0);
 				}
-			} else {
+			} else if (!this.p.ladder) {
 				let s = findSlope(this.p.x, this.p.y, this.things['s'], -1);
 				if (s) {
 					
 					this.p.slope(s);
 					this.p.right = false;
 					this.scrollSlopeLeft(s.direction());
-					// this.scrollSlopeLeft(s.direction());
 				} else {
-					// console.log("no slope");
 					let f = this.p.walkLeft(this.things);
 					if (f) {
 						this.scrollAll(-Room.walk, 0);
