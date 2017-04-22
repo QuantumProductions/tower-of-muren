@@ -28,7 +28,7 @@ class Data {
     let n = m / 2;
     let t = m + n;
     return [
-      [0.5, 1]
+      [0.5, 0]
     ]
   }
 }

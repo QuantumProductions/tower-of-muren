@@ -78,9 +78,9 @@ class TowerOfMuren extends Game {
 			this.scrollAll(0, Room.walk);
 			this.p.increaseLadder(Room.walk);
 
-			if (!this.p.laddering()) {
-				this.p.ladderDelta = 0;
-			}
+			// if (!this.p.laddering()) {
+			// 	this.p.ladderDelta = 0;
+			// }
 	}
 
 	scrollLadderDown(v) {
@@ -90,9 +90,9 @@ class TowerOfMuren extends Game {
 			this.scrollAll(0, -Room.walk);
 			this.p.increaseLadder(Room.walk);
 
-			if (!this.p.laddering()) {
-				this.p.ladderDelta = 0;
-			}
+			// if (!this.p.laddering()) {
+			// 	this.p.ladderDelta = 0;
+			// }
 	}
 
 
@@ -110,7 +110,11 @@ class TowerOfMuren extends Game {
 				if (l) {
 					this.p.ladder(l);
 					this.scrollLadderUp(Room.walk);
+				} else {
+					console.log("no ladder up");
+					console.log(this.p.ladderDelta);
 				}
+				this.p.down = false;
 			}
 		} else if (key_down_map['D1'] == true) {
 			if (this.p.laddering()) {
@@ -120,6 +124,10 @@ class TowerOfMuren extends Game {
 				if (l) {
 					this.p.ladder(l);
 					this.scrollLadderDown(Room.walk);
+					this.p.down = true;
+				} else {
+					console.log("no ladder");
+					console.log(this.p.ladderDelta);
 				}
 			}
 		}

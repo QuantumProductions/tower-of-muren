@@ -9,12 +9,16 @@ findLadder = function(ladders, x, y, direction) {
 }
 
 findLadder2 = function(l, x, y, direction) {
+  console.log(y);
+    console.log(l.y);
   if (x > l.x - 10 * Room.walk && x < l.x +  10 * Room.walk) {
     if (direction == 1) {
-       return Math.abs((l.y - 200) - y) < 11;
+       return Math.abs((l.y - Room.h) - y) < 11;
     } else if (direction == -1) {
       return Math.abs(y - l.y) < 11;
     }
+
+
 
 
   }
