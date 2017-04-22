@@ -79,11 +79,11 @@ class Player extends Thing {
 	}
 
 	walkLeft(things) {
-		return findFloor(things['f'], this.x - Room.walk, this.y);
+		return findFloor(things['f'], this.x - 0.5 * Room.walk, this.y);
 	}
 
 	walkRight(things) {
-		return findFloor(things['f'], this.x + Room.walk, this.y);
+		return findFloor(things['f'], this.x + 0.5 * Room.walk, this.y);
 	}
 
 	
