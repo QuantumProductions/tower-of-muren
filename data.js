@@ -1,5 +1,3 @@
-'use strict';
-
 class Data {
   static floors() {
     let m = 0.125;
@@ -19,9 +17,8 @@ class Data {
     let n = m / 2;
     let t = m + n;
     return [
-      // [0.15, 0, 315],
-      // [0.75 + t, 1, 225]
-      [0.25, 1, 45]
+      [0.15, 0, 315],
+      [0.75 + t, 1, 225]
     ];
   }
 
