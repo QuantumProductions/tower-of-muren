@@ -1,132 +1,49 @@
 'use strict';
 
-class Floor extends Thing {
-	constructor() {
+class TThing extends Thing {
+	constructor(attributes) {
 		super();
-		this.x = 0;
-		this.y = 0;
-		this.duration = 0;
+		this.x = attributes[0] * Room.w;
+		this.y = Thing.fh - (attributes[1] * Room.h) - 1;
+		this.build(attributes);
 	}
 
-	static makeFloor(game, x,level, duration) {
-		var f = new Floor();
-		f.x = x * Room.w;
-		f.l = level;
-		f.y = Thing.fh - (level * Room.h) - 1;
-		f.duration = duration * Room.w;
-		game.add('f', f);
+	build(attributes) { }
+	static key() { return null; }
+
+	static make(game, thingClass, attributes) {
+		var thing = new this(attributes);
+		game.add(this.key(), thing);
 	}
 
-	static makeFloors(game, floors) {
-		for (let f of floors) {
-			Floor.makeFloor(game, f[0], f[1], f[2]);
+	static makeAll(game, thingClass, data) {
+		for (let d of data) {
+			this.make(game, thingClass, d);
 		}
 	}
 }
 
-class Player extends Thing {
-	constructor() {
-		super();
-		this.x = 0;
-		this.y = 0;
-		this.h = 9;
-		this.right = true;
-		this.up = true;
-		this.heightDelta = 0;
-		this.slopeDirection = "";
-		this.ladderDelta = 0;
-	}	
-
-	goLadder(l) {
-		this.ladderDelta = 0;
-		this.ladder = l;
+class Floor extends TThing {
+	build(attributes) {
+		this.l = attributes[1];
+		this.duration = attributes[2] * Room.w;
 	}
 
-	increaseLadder(v) {
-		this.ladderDelta += v;
-		// if (this.ladderDelta >= Room.h) {
-		// 	this.ladderDelta = 0;
-		// }
-	}
-
-	flipV() {
-		this.ladderDelta = Room.h - this.ladderDelta;
-	}
-
-	laddering() {
-		if (this.ladder) {
-			let isLadder = this.y < this.ladder.y - this.h && this.y > this.ladder.y - Room.h;
-			if (!isLadder) {
-				this.ladder = null;
-			}
-			return isLadder
-		}
-
-		this.ladder = null;
-
-		return false;
-	}
-
-
-	sloping() {
-		if (this.slopeDirection == "-") {
-			return this.heightDelta > 280;
-		}
-		return this.heightDelta > 0 && this.heightDelta < Room.h;
-	}
-
-	slope(s, direction) {
-		this.heightDelta = 0;
-		this.slopeDirection = s.direction();
-		this.slopeR = s.r;
-	}
-
-	increaseSlope(v, direction) {
-			this.heightDelta += v;
-	}
-
-	flip() {
-		this.heightDelta = Room.h - this.heightDelta;
-	}
-
-	walkLeft(things) {
-		return findFloor(things['f'], this.x - 0.5 * Room.walk, this.y);
-	}
-
-	walkRight(things) {
-		return findFloor(things['f'], this.x + 0.5 * Room.walk, this.y);
-	}
-
-	
+	static key() { return "f" }
 }
 
-class Slope extends Thing {
-	constructor() {
-		super();
-		this.x = 0;
-		this.y = 0;
-		this.team = 'not';
-		this.leverDirection = -1;
-		this.r = 135;
-		this.duration = 282.84;
-		// this.startingR = 135;
-		// this.currentR = this.startingR;
-	}
+class Slope extends TThing {
+	// constructor(attr) {
+	// 	super(attr);
+	// 	this.team = 'not';
+	// 	this.leverDirection = -1;
+	// }
 
-	static makeSlope(game, x, level, r) {
-		var s = new Slope();
-		s.x = x * Room.w;
-		s.y = Thing.fh - (level * Room.h) - 1;
-		s.level = level;
-		s.r = r;
-		game.add('s', s);	
+	build(attributes) {
+		this.level = attributes[1];
+		this.r = attributes[2];
+		this.duration = 282.84
 	}
-
-	static makeSlopes(game, slopes) {
-		for (let s of slopes) {
-			Slope.makeSlope(game, s[0], s[1], s[2]);
-		}
-	}	
 
 	direction() {
 		if (this.r == 0 || this.r == 180) {
@@ -137,27 +54,14 @@ class Slope extends Thing {
 			return "/";
 		}
 	}
+
+	static key() { return "s" }
 }
 
-class Ladder extends Thing {
-	constructor() {
-		super();
-		this.x = 0;
-		this.y = 0;
+class Ladder extends TThing {
+	build(attributes) {
+		this.level = attributes[1];
 	}
 
-	static makeLadder(game, x, level) {
-		var l = new Ladder();
-		l.x = x * Room.w;
-		l.y = Thing.fh - (level * Room.h) - 1;
-		l.level = level;
-		game.add('l', l);	
-	}
-
-	static makeLadders(game, ladders) {
-		// could just pass array dynamically for all game types
-		for (let s of ladders) {
-			Ladder.makeLadder(game, s[0], s[1]);
-		}
-	}	
+	static key() { return "l" }
 }

@@ -5,9 +5,9 @@ class TowerOfMuren extends Game {
 		super(options);
 		Color.setup();
 		Room.setup();
-		Floor.makeFloors(this, Data.floors());
-		Slope.makeSlopes(this, Data.slopes());
-		Ladder.makeLadders(this, Data.ladders());
+		Floor.makeAll(this, Floor, Data.floors());
+		Slope.makeAll(this, Slope, Data.slopes());
+		Ladder.makeAll(this, Ladder, Data.ladders());
 		this.spawnP();
 	}
 
