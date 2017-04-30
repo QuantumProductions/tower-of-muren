@@ -5,9 +5,11 @@ class TowerOfMuren extends Game {
 		super(options);
 		Color.setup();
 		Room.setup();
+		Lever.setup();
 		Floor.makeAll(this, Floor, Data.floors());
 		Slope.makeAll(this, Slope, Data.slopes());
 		Ladder.makeAll(this, Ladder, Data.ladders());
+		Lever.makeAll(this, Lever, Data.levers());
 		this.spawnP();
 	}
 
@@ -147,6 +149,15 @@ class TowerOfMuren extends Game {
 					let f = this.p.walkRight(this.things);
 					if (f) {
 						this.scrollAll(Room.walk, 0);
+
+						let l = findLever(this.p.x, this.p.y, this.things['v'], 1);
+						if (l) {
+							let push = l.pushRight();
+							if (push) {
+								this.scrollAll(-Room.walk * 4, 0);
+							}
+						}
+
 					} else {
 						console.log("no floor");
 					}
@@ -174,6 +185,16 @@ class TowerOfMuren extends Game {
 					let f = this.p.walkLeft(this.things);
 					if (f) {
 						this.scrollAll(-Room.walk, 0);
+
+
+						let l = findLever(this.p.x, this.p.y, this.things['v'], -1);
+						if (l) {
+							let push = l.pushLeft();
+							if (push) {
+								this.scrollAll(Room.walk * 4, 0);
+							}
+						}
+
 					} else {
 						console.log("no floor L");
 					}

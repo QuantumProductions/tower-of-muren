@@ -15,10 +15,6 @@ findLadder2 = function(l, x, y, direction) {
     } else if (direction == -1) {
       return Math.abs(y - l.y) < 11;
     }
-
-
-
-
   }
   // if (x > l.x - 4 * Room.walk && x < l.x +  4 * Room.walk && (Math.abs(y - l.y) < 11 || Math.abs(y - 200) - l.y < 11)) {
     // return true;
@@ -105,5 +101,41 @@ findSlopeLeft = function(x, y, s) {
     return s;
   } 
   }
+  return null; 
+}
+
+findLeverRight = function(x, y, s) {
+  if (s.x > x - 1 && Math.abs(s.y - y) < 31 && s.x - x <= Room.walk) {
+    return s;
+  }
+
+  return null;
+}
+
+
+findLeverLeft = function(x, y, s) {
+  if (s.x < x + 1 && Math.abs(s.y - y) < 31 && x - s.x <= Room.walk) {
+    return s;
+  }
+
+  return null;
+}
+
+findLever = function(x, y, levers, xD) {
+ for (var l of levers) {
+    // adjacent first
+    if (xD == 1) {
+      let lever = findLeverRight(x, y, l);
+      if (lever != null) {
+        return lever;
+      }
+    } else if (xD == -1) {
+      let lever = findLeverLeft(x, y, l);
+      if (lever != null) {
+        return lever;
+      }
+    }
+  }
+
   return null; 
 }

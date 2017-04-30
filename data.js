@@ -17,8 +17,8 @@ class Data {
     let n = m / 2;
     let t = m + n;
     return [
-      [0.75 + t, 1, 225-90],
-      [0.5, 3, 225-90]
+      [0.75 + t, 1, 0],
+      [0.5, 3, 0]
     ];
   }
 
@@ -28,6 +28,15 @@ class Data {
     let t = m + n;
     return [
       [0.5, 1]
+    ]
+  }
+
+  static levers() {
+    let m = 0.125;
+    let n = m / 2;
+    let t = m + n;
+    return [
+      [0.5 + m, 2, 0]
     ]
   }
 }

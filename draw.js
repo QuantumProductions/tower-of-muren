@@ -1,6 +1,21 @@
 Thing.prototype.draw = function(client, context) {
-
+	context.beginPath();
+	context.fillStyle = Color.main;
+	context.arc(this.x, this.y, 8, 0, 2 * Math.PI, false);	
+	context.fill();
 };
+
+// Lever.prototype.draw = function(c, ct) {
+// 	this.render(ct, this.x, this.y, this.position);
+// 	this.render(ct, this.x - Room.w, this.y - Room.h, this.position);
+// 	this.render(ct, this.x + Room.w, this.y + Room.h, this.position);
+// }
+
+Lever.prototype.render = function(c, x, y, p) {
+	c.beginPath();
+	c.moveTo(x, y);
+	
+}
 
 Floor.prototype.draw = function(c, ct) {
 	ct.beginPath();
