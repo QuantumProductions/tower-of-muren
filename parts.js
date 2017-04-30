@@ -78,6 +78,7 @@ class Ladder extends TThing {
 class Lever extends TThing {
 	static setup() {
 		Lever.slopes = [225];
+		Lever.duration = 60;
 	}
 
 	build(attributes) {

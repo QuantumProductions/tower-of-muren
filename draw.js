@@ -5,16 +5,26 @@ Thing.prototype.draw = function(client, context) {
 	context.fill();
 };
 
-// Lever.prototype.draw = function(c, ct) {
-// 	this.render(ct, this.x, this.y, this.position);
-// 	this.render(ct, this.x - Room.w, this.y - Room.h, this.position);
-// 	this.render(ct, this.x + Room.w, this.y + Room.h, this.position);
-// }
+Lever.prototype.draw = function(c, ct) {
+	// let lw = ct.lineWidth;
+	ct.strokeStyle = Color.main;
+	ct.fillStyle = Color.main;
+	this.render(ct, this.x, this.y, this.r);
+	this.render(ct, this.x - Room.w, this.y - Room.h, this.r);
+	this.render(ct, this.x + Room.w, this.y + Room.h, this.r);
+	// ct.lineWidth = lw;
+}
 
-Lever.prototype.render = function(c, x, y, p) {
+Lever.prototype.render = function(c, x, y, r) {
 	c.beginPath();
 	c.moveTo(x, y);
 	
+	var rp = rotate_point(x + Lever.duration, y, x, y, r);
+	c.lineTo(rp.x, rp.y);
+	c.stroke();
+	c.beginPath();
+	c.arc(rp.x, rp.y, 6, 0, 2 * Math.PI, false);
+	c.stroke();
 }
 
 Floor.prototype.draw = function(c, ct) {
